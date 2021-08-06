@@ -26,18 +26,13 @@ class XMLFormatParser implements FormatParserInterface
         $configNode = $dom->getElementsByTagName('config')->item(0);
 
         $config = new ConfigDto();
-
-        /** @var DOMNode $node */
-        foreach ($configNode->childNodes->getIterator() as $node) {
-            if ($node->nodeType !== XML_ELEMENT_NODE) {
-                continue;
-            }
-
+        $this->iterateElementsOnly($configNode->childNodes, function ($node) use (&$config) {
+            /** @var DOMNode $node */
             $value = $this->parseNode($node);
             if (!is_null($value)) {
                 $config->set($node->nodeName, $value);
             }
-        }
+        });
 
         return $config;
     }
@@ -76,17 +71,12 @@ class XMLFormatParser implements FormatParserInterface
     private function parseSubdomains(DOMNodeList $nodeList): array
     {
         $subdomains = [];
-
-        /** @var DOMNode $node */
-        foreach ($nodeList->getIterator() as $node) {
-            if ($node->nodeType !== XML_ELEMENT_NODE) {
-                continue;
-            }
-
+        $this->iterateElementsOnly($nodeList, function ($node) use (&$subdomains) {
+            /** @var DOMNode $node */
             if (!empty($node->nodeValue)) {
                 $subdomains[] = $node->nodeValue;
             }
-        }
+        });
 
         return array_unique($subdomains);
     }
@@ -94,21 +84,24 @@ class XMLFormatParser implements FormatParserInterface
     private function parseCookies(DOMNodeList $nodeList): array
     {
         $cookies = [];
-
-        /** @var DOMNode $node */
-        foreach ($nodeList->getIterator() as $node) {
-            if ($node->nodeType !== XML_ELEMENT_NODE) {
-                continue;
-            }
-
+        $this->iterateElementsOnly($nodeList, function ($node) use (&$cookies) {
+            /** @var DOMNode $node */
             $name = $node->attributes->getNamedItem('name')->textContent;
             $host = $node->attributes->getNamedItem('host')->textContent;
-
             if (!empty($name) && !empty($host) && !empty($node->nodeValue)) {
                 $cookies["cookie:{$name}:{$host}"] = $node->nodeValue;
             }
-        }
+        });
 
         return $cookies;
+    }
+
+    private function iterateElementsOnly(DOMNodeList $nodeList, callable $fn): void
+    {
+        foreach ($nodeList->getIterator() as $node) {
+            if ($node->nodeType === XML_ELEMENT_NODE) {
+                $fn($node);
+            }
+        }
     }
 }
