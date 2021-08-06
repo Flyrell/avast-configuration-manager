@@ -28,3 +28,8 @@
 .DS_Store
 Thumbs.db
 ###< system files ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
