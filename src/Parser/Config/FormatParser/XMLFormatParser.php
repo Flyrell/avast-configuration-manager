@@ -39,8 +39,6 @@ class XMLFormatParser implements FormatParserInterface
             }
         }
 
-        var_dump($config);
-
         return $config;
     }
 
