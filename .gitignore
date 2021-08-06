@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -8,3 +7,24 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> IDE files ###
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+###< IDE files ###
+
+###> system files ###
+.DS_Store
+Thumbs.db
+###< system files ###
