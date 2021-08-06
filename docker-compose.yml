@@ -1,0 +1,43 @@
+version: '3.9'
+services:
+  redis:
+    container_name: redis
+    image: "redis:alpine"
+    ports:
+      - "${REDIS_PORT}:6379"
+
+  php:
+    container_name: php-fpm
+    build:
+      context: ./docker/php-fpm
+      args:
+        PHP_XDEBUG_MODE: ${PHP_XDEBUG_MODE}
+        PHP_XDEBUG_CLIENT_PORT: ${PHP_XDEBUG_CLIENT_PORT}
+        PHP_XDEBUG_CLIENT_HOST: ${PHP_XDEBUG_CLIENT_HOST}
+        SYMFONY_CLI_VERSION: 4.25.4
+    ports:
+      - "${PHP_FPM_PORT}:9001"
+    volumes:
+      - ./:/var/www/symfony:cached
+    links:
+      - redis
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./docker/nginx
+      args:
+        NGINX_SYMFONY_SERVER_NAME: ${NGINX_SYMFONY_SERVER_NAME}
+    ports:
+      - "${NGINX_PORT}:80"
+    depends_on:
+      - php
+    environment:
+      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
+      - NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/templates
+      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.template
+      - NGINX_SYMFONY_SERVER_NAME=${NGINX_SYMFONY_SERVER_NAME}
+    volumes:
+      - ./:/var/www/symfony:cached
+    links:
+      - php
