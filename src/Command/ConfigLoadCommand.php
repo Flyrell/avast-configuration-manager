@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\ConfigLoaderService;
+use App\Service\ConfigService;
 use App\Exception\ConfigLoadException;
 use App\Enum\ConfigLoadCommandArgsEnum;
 use Symfony\Component\Console\Command\Command;
@@ -16,10 +16,7 @@ class ConfigLoadCommand extends Command
     protected static $defaultName = 'config:load';
     protected static $defaultDescription = 'Command used for parsing configuration files';
 
-    /**
-     * @param ConfigLoaderService $configLoaderService
-     */
-    public function __construct(private ConfigLoaderService $configLoaderService)
+    public function __construct(private ConfigService $configLoaderService)
     {
         parent::__construct();
     }

@@ -6,7 +6,7 @@ interface ConfigValidatorInterface
 {
 
     /**
-     * Validates passed content
+     * Validates passed content.
      *
      * @param mixed $content
      * @return bool

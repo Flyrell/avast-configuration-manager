@@ -6,23 +6,15 @@ use App\Service\FileService;
 use App\Exception\FileException;
 use App\Exception\ParsingException;
 use App\Parser\FormatParser\FormatParserInterface;
+use function is_null;
 
 class ConfigParser implements ConfigParserInterface
 {
 
-    /**
-     * @param FormatParserInterface[] $parsers
-     * @param FileService $fileService
-     */
-    public function __construct(
-        private array $parsers,
-        private FileService $fileService,
-    ) {}
+    public function __construct(private array $parsers, private FileService $fileService) {}
 
     /**
-     * @param string $filepath
-     * @return ConfigInterface
-     * @throws ParsingException
+     * @inheritDoc
      */
     public function parseFile(string $filepath): ConfigInterface
     {
@@ -35,9 +27,7 @@ class ConfigParser implements ConfigParserInterface
     }
 
     /**
-     * @param string $content
-     * @return ConfigInterface
-     * @throws ParsingException
+     * @inheritDoc
      */
     public function parseString(string $content): ConfigInterface
     {

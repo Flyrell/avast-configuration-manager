@@ -6,16 +6,13 @@ use App\Exception\FileException;
 use Symfony\Component\Filesystem\Filesystem;
 use function file_get_contents;
 
-/**
- * Service used for file content manipulation.
- */
 class FileService
 {
 
     public function __construct(private Filesystem $filesystem) {}
 
     /**
-     * Reads file content in the specified $filepath
+     * Reads file content in the specified filepath.
      *
      * @param string $filepath
      * @return string
@@ -36,7 +33,7 @@ class FileService
     }
 
     /**
-     * Reads the file and returns its contents
+     * Reads the file and returns its contents.
      *
      * @param string $filepath
      * @return string|bool

@@ -34,9 +34,8 @@ class XMLFormatParser implements FormatParserInterface
         $config = new ConfigDto();
         $configNode = $dom->getElementsByTagName('config')->item(0);
         DOMUtils::iterateElements($configNode->childNodes, function ($node) use (&$config) {
-            $value = $this->parseNode($node);
-            if (!is_null($value)) {
-                $config->set($node->nodeName, $value);
+            foreach ($this->parseNode($node) as $parsed) {
+                $config->set($node->nodeName, $parsed);
             }
         });
 
@@ -72,15 +71,15 @@ class XMLFormatParser implements FormatParserInterface
      * Determines which Parser to use when parsing the node.
      *
      * @param DOMNode $node
-     * @return mixed
+     * @return array
      */
-    private function parseNode(DOMNode $node): mixed
+    private function parseNode(DOMNode $node): array
     {
         foreach ($this->nodeParsers as $nodeParser) {
             if ($nodeParser->supports($node)) {
                 return $nodeParser->parse($node);
             }
         }
-        return null;
+        return [];
     }
 }

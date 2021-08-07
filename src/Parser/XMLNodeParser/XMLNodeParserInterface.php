@@ -8,15 +8,15 @@ interface XMLNodeParserInterface
 {
 
     /**
-     * Extracts data from the provided node
+     * Extracts data from the provided node.
      *
      * @param DOMNode $node
      * @return mixed
      */
-    public function parse(DOMNode $node): mixed;
+    public function parse(DOMNode $node): iterable;
 
     /**
-     * Determines if the parser supports provided node
+     * Determines if the parser supports provided node.
      *
      * @param DOMNode $node
      * @return bool

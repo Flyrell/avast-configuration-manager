@@ -3,6 +3,7 @@
 namespace App\Parser\XMLNodeParser;
 
 use DOMNode;
+use App\Dto\CookieDto;
 use App\Utils\DOMUtils;
 use App\Enum\ConfigKeysEnum;
 
@@ -12,7 +13,7 @@ class CookiesParser implements XMLNodeParserInterface
     /**
      * @inheritDoc
      */
-    public function parse(DOMNode $node): array
+    public function parse(DOMNode $node): iterable
     {
         $cookies = [];
         DOMUtils::iterateElements($node->childNodes, function ($node) use (&$cookies) {
@@ -20,7 +21,7 @@ class CookiesParser implements XMLNodeParserInterface
             $name = $node->attributes->getNamedItem('name')->textContent;
             $host = $node->attributes->getNamedItem('host')->textContent;
             if (!empty($name) && !empty($host) && !empty($node->nodeValue)) {
-                $cookies["cookie:{$name}:{$host}"] = $node->nodeValue;
+                $cookies[] = new CookieDto("cookie:{$name}:{$host}", $node->nodeValue);
             }
         });
 
