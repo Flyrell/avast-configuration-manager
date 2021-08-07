@@ -6,6 +6,7 @@ use DateInterval;
 use App\Enum\CacheTagsEnum;
 use App\Parser\ConfigInterface;
 use App\Cache\Collection\CacheableCollection;
+use App\Cache\Collection\CacheableCollectionItem;
 use App\Cache\Collection\CacheableCollectionItemInterface;
 
 class ConfigDto extends CacheableCollection implements ConfigInterface
@@ -18,6 +19,8 @@ class ConfigDto extends CacheableCollection implements ConfigInterface
     {
         if ($value instanceof CacheableCollectionItemInterface) {
             $this->add($value);
+        } else {
+            $this->add(new CacheableCollectionItem($key, $value));
         }
         return $this;
     }
