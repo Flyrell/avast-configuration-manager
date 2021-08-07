@@ -10,10 +10,10 @@ class CacheableCollection implements CacheableCollectionInterface
 {
 
     /** @var CacheableCollectionItemInterface[]  */
-    protected array $items;
+    protected array $items = [];
 
     /** @var string[] $tags */
-    protected array $tags;
+    protected array $tags = [];
 
     /** @var DateInterval $expiresAfter */
     protected DateInterval $expiresAfter;
