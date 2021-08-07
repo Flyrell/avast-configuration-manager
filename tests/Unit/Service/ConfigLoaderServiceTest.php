@@ -3,8 +3,8 @@
 namespace App\Tests\Unit\Service;
 
 use App\Dto\ConfigDto;
+use App\Parser\ConfigParser;
 use App\Exception\ParsingException;
-use App\Parser\Config\ConfigParser;
 use App\Service\ConfigLoaderService;
 use App\Exception\ConfigLoadException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

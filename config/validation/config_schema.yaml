@@ -1,0 +1,30 @@
+#
+# Mapping for configuration data.
+#
+# SCHEMA:
+#   <key_name>:
+#       type: <array|object|string>
+#       optional: <true|false> (optional)
+#       (for type 'array') child:
+#           <schema recursion>
+#       (for type 'object') properties:
+#           <schema recursion>
+#
+
+parameters:
+  config_schema:
+    !php/const App\Enum\ConfigKeysEnum::SUBDOMAINS:
+      type: array
+      child:
+        type: string
+    !php/const App\Enum\ConfigKeysEnum::COOKIES:
+      type: array
+      child:
+        type: object
+        properties:
+          name:
+            type: string
+          host:
+            type: string
+          value:
+            type: string

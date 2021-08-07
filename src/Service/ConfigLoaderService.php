@@ -3,8 +3,8 @@
 namespace App\Service;
 
 use App\Exception\ParsingException;
+use App\Parser\ConfigParserInterface;
 use App\Exception\ConfigLoadException;
-use App\Parser\Config\ConfigParserInterface;
 
 class ConfigLoaderService
 {
