@@ -36,7 +36,7 @@ class DOMUtils
     }
 
     /**
-     * Iterates the DOMNodeList and returns first element node or null
+     * Iterates the DOMNodeList and returns first element node or null.
      *
      * @param DOMNodeList $nodeList
      * @return DOMNode|null
@@ -78,7 +78,7 @@ class DOMUtils
     }
 
     /**
-     * Counts all the element nodes in DOMNodeList
+     * Counts all the element nodes in DOMNodeList.
      *
      * @param DOMNodeList $nodeList
      * @return int
@@ -93,10 +93,10 @@ class DOMUtils
     }
 
     /**
-     * Determines the node type
+     * Determines the node type base on its arguments, value and/or provided expected type.
      *
      * @param DOMNode $node
-     * @param string|null $expectedType <- used for arrays, as they may have no elements
+     * @param string|null $expectedType
      * @return string
      */
     public static function determineNodeType(DOMNode $node, ?string $expectedType = null): string

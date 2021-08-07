@@ -3,6 +3,8 @@
 namespace App\Tests\Unit\Parser\FormatParser;
 
 use App\Dto\ConfigDto;
+use App\Dto\CookieDto;
+use App\Dto\SubdomainsDto;
 use App\Exception\ParsingException;
 use App\Validator\ConfigValidatorInterface;
 use App\Tests\Unit\Utils\ConfigParserUtils;
@@ -61,13 +63,14 @@ class XMLConfigParserTest extends KernelTestCase
 
     public function testShouldParseSupportedXMLContent(): void
     {
-        $nodeParserResult = 'NODE_PARSER_RESULT';
+        $resultItem = new SubdomainsDto('subdomains', [ 'here' ]);
+
         $this->nodeParsers[0]->expects($this->atLeastOnce())
             ->method('supports')
             ->willReturn(true);
         $this->nodeParsers[0]->expects($this->atLeastOnce())
             ->method('parse')
-            ->willReturn($nodeParserResult);
+            ->willReturn([ $resultItem ]);
 
         $parser = new XMLFormatParser($this->nodeParsers, $this->configValidator);
 
@@ -78,7 +81,7 @@ class XMLConfigParserTest extends KernelTestCase
         }
 
         $this->assertInstanceOf(ConfigDto::class, $result);
-        $this->assertEquals($result->get('subdomains'), $nodeParserResult);
+        $this->assertSame($result->get('subdomains'), $resultItem);
     }
 
     /**
@@ -123,19 +126,20 @@ class XMLConfigParserTest extends KernelTestCase
         $this->nodeParsers[0]->expects($this->never())
             ->method('parse');
 
-        $parserResult = 'NODE_PARSER_RESULT';
+        $parserResult1 = new SubdomainsDto('subdomains', [ 'here' ]);
+        $parserResult2 = new CookieDto('cookie:123:456', 'parapapapam');
         $this->nodeParsers[1]->expects($this->atLeastOnce())
             ->method('supports')
             ->willReturn(true);
         $this->nodeParsers[1]->expects($this->atLeastOnce())
             ->method('parse')
-            ->willReturn($parserResult);
+            ->willReturn([ $parserResult1 ], [ $parserResult2 ]);
 
         $parser = new XMLFormatParser($this->nodeParsers, $this->configValidator);
         $result = $parser->parse(ConfigParserUtils::$supportedXMLContent);
 
         $this->assertInstanceOf(ConfigDto::class, $result);
-        $this->assertEquals($result->get('cookies'), $parserResult);
-        $this->assertEquals($result->get('subdomains'), $parserResult);
+        $this->assertSame($result->get('subdomains'), $parserResult1);
+        $this->assertSame($result->get('cookie:123:456'), $parserResult2);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\Command;
 
 use App\Command\ConfigLoadCommand;
-use App\Service\ConfigLoaderService;
+use App\Service\ConfigService;
 use App\Exception\ConfigLoadException;
 use App\Enum\ConfigLoadCommandArgsEnum;
 use Symfony\Component\Console\Command\Command;
@@ -36,7 +36,7 @@ class ConfigLoadCommandTest extends KernelTestCase
 
     public function testArgumentFilepathShouldBeRequired(): void
     {
-        $configLoaderServiceMock = $this->getMockBuilder(ConfigLoaderService::class)
+        $configLoaderServiceMock = $this->getMockBuilder(ConfigService::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -49,7 +49,7 @@ class ConfigLoadCommandTest extends KernelTestCase
 
     public function testShouldExecuteCorrectlyWithRequiredArgument(): void
     {
-        $configLoaderServiceMock = $this->getMockBuilder(ConfigLoaderService::class)
+        $configLoaderServiceMock = $this->getMockBuilder(ConfigService::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -63,7 +63,7 @@ class ConfigLoadCommandTest extends KernelTestCase
 
     public function testShouldCallLoadFromFileWithCorrectArguments(): void
     {
-        $configLoaderServiceMock = $this->getMockBuilder(ConfigLoaderService::class)
+        $configLoaderServiceMock = $this->getMockBuilder(ConfigService::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -80,7 +80,7 @@ class ConfigLoadCommandTest extends KernelTestCase
 
     public function testShouldDisplayErrorMessageOnFailure(): void
     {
-        $configLoaderServiceMock = $this->getMockBuilder(ConfigLoaderService::class)
+        $configLoaderServiceMock = $this->getMockBuilder(ConfigService::class)
             ->disableOriginalConstructor()
             ->getMock();
 

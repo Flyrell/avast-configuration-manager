@@ -7,7 +7,7 @@ use DOMDocument;
 use App\Utils\DOMUtils;
 
 /**
- * Validates XML Config file
+ * Validates XML Config file.
  */
 class XMLConfigValidator extends AbstractConfigValidator
 {
