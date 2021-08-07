@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Parser\Config;
+namespace App\Parser;
 
 interface ConfigParserInterface
 {

@@ -2,7 +2,7 @@
 
 namespace App\Dto;
 
-use App\Parser\Config\ConfigInterface;
+use App\Parser\ConfigInterface;
 
 class ConfigDto implements ConfigInterface
 {

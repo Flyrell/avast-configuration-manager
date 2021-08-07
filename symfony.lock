@@ -142,6 +142,18 @@
     "symfony/css-selector": {
         "version": "v5.3.4"
     },
+    "symfony/debug-bundle": {
+        "version": "4.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.1",
+            "ref": "0ce7a032d344fb7b661cd25d31914cd703ad445b"
+        },
+        "files": [
+            "config/packages/dev/debug.yaml"
+        ]
+    },
     "symfony/dependency-injection": {
         "version": "v5.3.4"
     },
@@ -264,6 +276,12 @@
     "symfony/test-pack": {
         "version": "v1.0.8"
     },
+    "symfony/translation-contracts": {
+        "version": "v2.4.0"
+    },
+    "symfony/twig-bridge": {
+        "version": "v5.3.4"
+    },
     "symfony/var-dumper": {
         "version": "v5.3.6"
     },
@@ -275,6 +293,9 @@
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
+    },
+    "twig/twig": {
+        "version": "v3.3.2"
     },
     "webmozart/assert": {
         "version": "1.10.0"

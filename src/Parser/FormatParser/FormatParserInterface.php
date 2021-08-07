@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Parser\Config\FormatParser;
+namespace App\Parser\FormatParser;
 
+use App\Parser\ConfigInterface;
 use App\Exception\ParsingException;
-use App\Parser\Config\ConfigInterface;
 
 interface FormatParserInterface
 {
 
     /**
-     * Parses the passed content and returns instance of ConfigInterface
+     * Parses passed content and returns instance of ConfigInterface
      *
      * @param string $content
      * @return ConfigInterface

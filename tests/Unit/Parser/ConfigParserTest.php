@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Tests\Unit\Parser\Config;
+namespace App\Tests\Unit\Parser;
 
 use App\Dto\ConfigDto;
 use ReflectionException;
+use App\Parser\ConfigParser;
 use App\Service\FileService;
+use App\Parser\ConfigInterface;
 use App\Exception\ParsingException;
-use App\Parser\Config\ConfigParser;
-use App\Parser\Config\ConfigInterface;
 use App\Tests\Unit\Utils\ReflectionUtils;
 use App\Tests\Unit\Utils\ConfigParserUtils;
+use App\Parser\FormatParser\FormatParserInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use App\Parser\Config\FormatParser\FormatParserInterface;
 
 class ConfigParserTest extends KernelTestCase
 {
@@ -101,7 +101,7 @@ class ConfigParserTest extends KernelTestCase
     }
 
     /**
-     * Not that it's needed to test that (in my opinion), but just to showcase the skills :-)
+     * Not that it's needed to test that (in my opinion), but just to showcase it's possible :-)
      */
     public function testShouldContinueToLookForFirstSupportedParser(): void
     {

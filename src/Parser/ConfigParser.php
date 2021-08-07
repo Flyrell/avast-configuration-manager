@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Parser\Config;
+namespace App\Parser;
 
 use App\Service\FileService;
 use App\Exception\FileException;
 use App\Exception\ParsingException;
-use App\Parser\Config\FormatParser\FormatParserInterface;
+use App\Parser\FormatParser\FormatParserInterface;
 
 class ConfigParser implements ConfigParserInterface
 {
