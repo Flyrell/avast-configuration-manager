@@ -34,8 +34,11 @@ executes only the following line `cd /var/www/symfony && php bin/console config:
 
 To run export.sh use:
 ```bash
-# Access php container: docker-compose exec php /bin/sh
-export.sh resources/config.xml
+# without verbosity
+docker-compose run php export.sh resources/config.xml
+
+# with verbosity
+docker-compose run php export.sh -v resources/config.xml
 ```
 
 #### Configuration load command
@@ -147,6 +150,5 @@ Custom Exception objects to correctly handle errors in the application.
 For now, only unit tests were created for the application.
 Unit test are grouped in their own test suite and can be executed via:
 ```bash
-# Access php container: docker-compose exec php /bin/sh
-php vendor/bin/phpunit --testsuite Unit
+ docker-compose run php vendor/bin/phpunit --testsuite Unit
 ```
