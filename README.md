@@ -1,6 +1,6 @@
 # Avast Interview Task
 
-### Task
+## Task
 - From attached XML file (resources/config.xml), please export data to Redis,
 - key "subdomains" will contain JSON with all subdomains (e.g. ["http://secureline.tools.avast.com", "http://gf.tools.avast.com"]),
 - keys "cookie:%NAME%:%HOST%" will contain values of cookie elements (e.g. key "cookie:dlp-avast:amazon" will contain string "mmm_amz_dlp_777_ppc_m"),
@@ -8,6 +8,14 @@
 - please use PHPUnit for tests.
 - to run the app please use this command: export.sh /path/to/xml
 - if "-v" argument is present in command it should print all keys saved to Redis (export.sh -v /path/to/xml)
+
+## Installation
+```bash
+git clone https://github.com/Flyrell/avast-configuration-manager.git
+cd avast-configuration-manager
+docker-compose up -d
+docker-compose run php composer install
+```
 
 ## Solution
 
