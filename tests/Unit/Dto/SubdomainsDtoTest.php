@@ -56,7 +56,7 @@ class SubdomainsDtoTest extends KernelTestCase
         $this->assertEquals("[\"$subdomain1\"]", $subdomains->getCacheValue());
     }
 
-    public function testShouldCorrectlyEmptyValue(): void
+    public function testShouldCorrectlyReturnEmptyValue(): void
     {
         $subdomains = new SubdomainsDto('subs', []);
 

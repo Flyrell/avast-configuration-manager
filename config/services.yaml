@@ -1,20 +1,12 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
 imports:
     - { resource: 'validation/config_schema.yaml' }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
-parameters:
-
 services:
-    # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             $configSchema: '%config_schema%'
-            App\Cache\CacheInterface: '@App\Cache\Adapter\RedisCacheAdapter'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -26,11 +18,12 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-    provider.redis:
-        class: \Redis
-        factory: ['App\Cache\Provider\RedisCacheAdapterFactory', 'createConnection']
-        bind:
-            $redisUrl: '%redis_url%'
+    logger.disableable:
+      class: App\Logger\DisableableLogger
+
+    App\Logger\DisableableLoggerInterface: '@logger.disableable'
+
+    App\Cache\CacheInterface: '@App\Cache\Adapter\RedisCacheAdapter'
 
     App\Parser\FormatParser\XMLFormatParser:
         bind:
@@ -43,7 +36,3 @@ services:
         bind:
             $parsers:
                 - '@App\Parser\FormatParser\XMLFormatParser'
-
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
