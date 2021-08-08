@@ -1,6 +1,0 @@
-monolog:
-    handlers:
-        disableable:
-            type: service
-            id: logger.disableable
-            level: info

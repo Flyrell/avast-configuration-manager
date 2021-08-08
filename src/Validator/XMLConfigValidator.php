@@ -66,30 +66,6 @@ class XMLConfigValidator extends AbstractConfigValidator
     }
 
     /**
-     * Validates config mapping recursively and runs the provided callback for each element.
-     * Callback arguments (from first to last):
-     *  - property name
-     *  - property mapping
-     *  - nesting level
-     *
-     * Callback should return true if the element should continue nesting recursively.
-     *
-     * @param array $mapping
-     * @param callable $fn
-     * @param array $parents
-     */
-    private function validateRecursively(array $mapping, callable $fn, array $parents = []): void
-    {
-        foreach ($mapping as $key => $propertyMapping) {
-            $found = $fn($key, $propertyMapping, count($parents));
-            $type = $propertyMapping['type'] ?? null;
-            if ($found && $type === 'array') {
-                $this->validateRecursively([ 'child' => $propertyMapping['child'] ], $fn, [ ...$parents, $key ]);
-            }
-        }
-    }
-
-    /**
      * Validates information from node against the config mapping.
      *
      * @param DOMNode $node
