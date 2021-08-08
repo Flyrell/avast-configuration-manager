@@ -18,7 +18,7 @@ class RedisCacheAdapter implements CacheInterface
      *
      * @throws InvalidArgumentException
      */
-    public function saveCollection(CacheableCollectionInterface $cacheableCollection): void
+    public function saveCollection(CacheableCollectionInterface $cacheableCollection): iterable
     {
         foreach ($cacheableCollection->getAll() as &$cacheableItem) {
             $this->cache->get(
@@ -30,6 +30,7 @@ class RedisCacheAdapter implements CacheInterface
                     return $cacheableItem->getCacheValue();
                 }
             );
+            yield $cacheableItem->getCacheKey();
         }
     }
 }

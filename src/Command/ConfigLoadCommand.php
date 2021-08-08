@@ -5,7 +5,6 @@ namespace App\Command;
 use App\Service\ConfigService;
 use App\Exception\ConfigLoadException;
 use App\Enum\ConfigLoadCommandArgsEnum;
-use App\Logger\DisableableLoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +16,7 @@ class ConfigLoadCommand extends Command
     protected static $defaultName = 'config:load';
     protected static $defaultDescription = 'Command used for parsing configuration files';
 
-    public function __construct(private ConfigService $configLoaderService, private DisableableLoggerInterface $logger)
+    public function __construct(private ConfigService $configLoaderService)
     {
         parent::__construct();
     }
@@ -40,13 +39,14 @@ class ConfigLoadCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $filepath = $input->getArgument(ConfigLoadCommandArgsEnum::FILEPATH);
-
-        if ($output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE) {
-            $this->logger->disableLogging();
-        }
+        $verbosityEnabled = $output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE;
 
         try {
-            $this->configLoaderService->loadFromFile($filepath);
+            foreach ($this->configLoaderService->loadFromFile($filepath) as $savedKey) {
+                if ($verbosityEnabled) {
+                    echo $savedKey . PHP_EOL;
+                }
+            }
         } catch (ConfigLoadException $e) {
             $output->writeln("<error>{$e->getMessage()}</error>");
             return Command::FAILURE;

@@ -4,7 +4,6 @@ namespace App\Tests\Unit\Cache\Adapter;
 
 use Psr\Cache\InvalidArgumentException;
 use App\Cache\Adapter\RedisCacheAdapter;
-use App\Cache\Collection\CacheableCollection;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use App\Cache\Collection\CacheableCollectionInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -30,7 +29,9 @@ class RedisCacheAdapterTest extends KernelTestCase
         $adapter = new RedisCacheAdapter($this->cacheAdapter);
 
         try {
-            $adapter->saveCollection($collection);
+            foreach ($adapter->saveCollection($collection) as $key) {
+                continue;
+            }
         } catch (InvalidArgumentException $e) {
             $this->fail("Exception should not have been thrown. {$e->getMessage()}");
         }
@@ -50,7 +51,9 @@ class RedisCacheAdapterTest extends KernelTestCase
         $adapter = new RedisCacheAdapter($this->cacheAdapter);
 
         try {
-            $adapter->saveCollection($collection);
+            foreach ($adapter->saveCollection($collection) as $key) {
+                continue;
+            }
         } catch (InvalidArgumentException $e) {
             $this->fail("Exception should not have been thrown. {$e->getMessage()}");
         }

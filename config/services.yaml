@@ -18,11 +18,6 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-    logger.disableable:
-      class: App\Logger\DisableableLogger
-
-    App\Logger\DisableableLoggerInterface: '@logger.disableable'
-
     App\Cache\CacheInterface: '@App\Cache\Adapter\RedisCacheAdapter'
 
     App\Parser\FormatParser\XMLFormatParser:
