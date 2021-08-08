@@ -19,6 +19,7 @@ services:
       - "${PHP_FPM_PORT}:9001"
     volumes:
       - ./:/var/www/symfony:cached
+      - ./export.sh:/usr/local/bin/export.sh
     links:
       - redis
 
