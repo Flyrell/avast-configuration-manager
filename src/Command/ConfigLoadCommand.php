@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
+use Throwable;
 use App\Service\ConfigService;
-use App\Exception\ConfigLoadException;
 use App\Enum\ConfigLoadCommandArgsEnum;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -47,7 +47,7 @@ class ConfigLoadCommand extends Command
                     echo $savedKey . PHP_EOL;
                 }
             }
-        } catch (ConfigLoadException $e) {
+        } catch (Throwable $e) {
             $output->writeln("<error>{$e->getMessage()}</error>");
             return Command::FAILURE;
         }

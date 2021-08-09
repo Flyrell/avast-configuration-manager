@@ -2,9 +2,9 @@
 
 namespace App\Tests\Unit\Command;
 
+use App\Exception\ParsingException;
 use App\Service\ConfigService;
 use App\Command\ConfigLoadCommand;
-use App\Exception\ConfigLoadException;
 use App\Enum\ConfigLoadCommandArgsEnum;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -87,7 +87,7 @@ class ConfigLoadCommandTest extends KernelTestCase
         $configLoaderServiceMock
             ->expects($this->once())
             ->method('loadFromFile')
-            ->willThrowException(new ConfigLoadException(0));
+            ->willThrowException(new ParsingException(0));
 
         $command = new ConfigLoadCommand($configLoaderServiceMock);
         $commandTester = new CommandTester($command);

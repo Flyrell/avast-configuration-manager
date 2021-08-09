@@ -2,6 +2,7 @@
 
 namespace App\Cache;
 
+use App\Exception\CacheException;
 use App\Cache\Collection\CacheableCollectionInterface;
 
 interface CacheInterface
@@ -12,6 +13,7 @@ interface CacheInterface
      *
      * @param CacheableCollectionInterface $cacheableCollection
      * @return iterable
+     * @throws CacheException
      */
     public function saveCollection(CacheableCollectionInterface $cacheableCollection): iterable;
 }

@@ -22,7 +22,7 @@ class ConfigParser implements ConfigParserInterface
             $content = $this->fileService->read($filepath);
             return $this->parseString($content);
         } catch (FileException $e) {
-            throw new ParsingException(ParsingException::PARSE_FILE_ERROR, $e);
+            throw new ParsingException(ParsingException::PARSE_FILE_ERROR, [], $e);
         }
     }
 
