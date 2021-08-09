@@ -4,6 +4,7 @@ namespace App\Exception;
 
 use Exception;
 use Throwable;
+use function sprintf;
 
 abstract class AbstractAppException extends Exception
 {
@@ -17,12 +18,13 @@ abstract class AbstractAppException extends Exception
      * no need to create public constructors that call the parent constructor.
      *
      * @param int $code
+     * @param array $messageContents
      * @param Throwable|null $previous
      */
-    public function __construct($code = 0, Throwable $previous = null)
+    public function __construct($code, array $messageContents = [], Throwable $previous = null)
     {
         $message = $this->findMessage($code);
-        parent::__construct($message, $code, $previous);
+        parent::__construct(sprintf($message, ...$messageContents), $code, $previous);
     }
 
     /**

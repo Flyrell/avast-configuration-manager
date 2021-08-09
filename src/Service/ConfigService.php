@@ -4,9 +4,9 @@ namespace App\Service;
 
 use App\Dto\ConfigDto;
 use App\Cache\CacheInterface;
+use App\Exception\CacheException;
 use App\Exception\ParsingException;
 use App\Parser\ConfigParserInterface;
-use App\Exception\ConfigLoadException;
 
 class ConfigService
 {
@@ -18,19 +18,16 @@ class ConfigService
      *
      * @param string $filepath
      * @return iterable
-     * @throws ConfigLoadException
+     * @throws CacheException
+     * @throws ParsingException
      */
     public function loadFromFile(string $filepath): iterable
     {
 
-        try {
-            /** @var ConfigDto $config */
-            $config = $this->configParser->parseFile($filepath);
-            foreach ($this->cache->saveCollection($config) as $savedKey) {
-                yield $savedKey;
-            }
-        } catch (ParsingException $e) {
-            throw new ConfigLoadException(0, $e);
+        /** @var ConfigDto $config */
+        $config = $this->configParser->parseFile($filepath);
+        foreach ($this->cache->saveCollection($config) as $savedKey) {
+            yield $savedKey;
         }
     }
 }

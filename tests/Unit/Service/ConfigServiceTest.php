@@ -7,7 +7,6 @@ use App\Parser\ConfigParser;
 use App\Cache\CacheInterface;
 use App\Service\ConfigService;
 use App\Exception\ParsingException;
-use App\Exception\ConfigLoadException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ConfigServiceTest extends KernelTestCase
@@ -38,7 +37,7 @@ class ConfigServiceTest extends KernelTestCase
             foreach ($service->loadFromFile('filepath.xml') as $item) {
                 continue;
             }
-        } catch (ConfigLoadException $e) {
+        } catch (ParsingException $e) {
             $this->fail("Exception should not have been thrown. {$e->getMessage()}");
         }
     }
@@ -51,7 +50,7 @@ class ConfigServiceTest extends KernelTestCase
 
         $service = new ConfigService($this->cache, $this->configParser);
 
-        $this->expectException(ConfigLoadException::class);
+        $this->expectException(ParsingException::class);
         foreach ($service->loadFromFile('filepath.xml') as $item) {
             continue;
         }
@@ -72,7 +71,7 @@ class ConfigServiceTest extends KernelTestCase
             foreach ($service->loadFromFile('filepath.xml') as $item) {
                 continue;
             }
-        } catch (ConfigLoadException $e) {
+        } catch (ParsingException $e) {
             $this->fail("Exception should not have been thrown. {$e->getMessage()}");
         }
     }
